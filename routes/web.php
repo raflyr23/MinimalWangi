@@ -52,3 +52,7 @@ Route::post('/update-order', [OrderController::class, 'updateOrder'])->name('ord
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [OrderController::class, 'storeOrder'])->name('order.store');
 
+
+Route::post('/checkout', [OrderController::class, 'storeOrder'])->name('order.store');
+Route::get('/payment', [OrderController::class, 'showPayment'])->name('order.payment');
+

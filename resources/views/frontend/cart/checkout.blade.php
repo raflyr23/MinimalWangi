@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="/">
     <title>MinimalWangi - Checkout</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    
     <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
@@ -16,7 +16,6 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-
 </head>
 <body>
     @include('frontend.home.header')
@@ -25,7 +24,7 @@
         <h2 class="text-center mb-4">Checkout</h2>
 
         <!-- User Details -->
-        <form action="{{ route('order.update') }}" method="POST">
+        <form action="{{ route('order.payment') }}" method="POST">
             @csrf
             <div class="row mb-4">
                 <div class="col-md-6">
@@ -74,15 +73,17 @@
                 <strong>Total Price: RP. {{ number_format($total, 0, ',', '.') }}</strong>
             </div>
 
-            <!-- Submit Button to Confirm Order -->
-            <div class="text-right mt-4">
-                <button type="submit" class="btn btn-primary">Confirm Order</button>
-            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary mt-4">Checkout</button>
         </form>
+
     </div>
 
     @include('frontend.home.footer')
-
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
 </body>
 </html>

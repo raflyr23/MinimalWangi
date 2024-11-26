@@ -19,4 +19,10 @@ class order extends Model
         'payment_status',
         'delivery_status',
     ];
+
+    public function orderItems()
+{
+    return $this->hasMany(OrderItem::class);
+}
+
 }

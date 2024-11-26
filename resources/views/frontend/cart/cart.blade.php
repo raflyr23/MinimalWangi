@@ -78,6 +78,7 @@
                     <strong>Total Price: RP. {{ number_format($total, 0, ',', '.') }}</strong>
                 </div>
                 <a href="{{ route('order.details') }}" class="btn btn-primary btn-lg">Lihat Detail Pemesanan</a>
+
             </div>
             @endif
         </div>

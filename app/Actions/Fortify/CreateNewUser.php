@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Actions\Fortify;
 
 use App\Models\User;
@@ -19,13 +18,17 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
+        // Tambahkan validasi untuk no_telp dan alamat
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'no_telp' => ['required', 'numeric', 'digits_between:10,15'],
+            'alamat' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
+        // Buat user baru dengan data input yang sudah divalidasi
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],

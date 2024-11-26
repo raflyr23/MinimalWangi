@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController; //Contorller untuk home user
 use App\Http\Controllers\AdminController; //controller untuk admin
 use App\Http\Controllers\CheckoutController; //controller untuk login
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController;
+
 Route::get('/', function () {
     return view('frontend.home.home');
 });
@@ -44,11 +44,11 @@ Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 Route::get('/show_cart', [HomeController::class, 'show_cart']);
 
 Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('cart.delete');
-Route::post('/get-midtrans-token', [OrderController::class, 'getMidtransToken']);
-Route::get('/checkout', [OrderController::class, 'showDetails'])->name('order.details');
-Route::post('/order/update', [OrderController::class, 'updateOrder'])->name('order.update');
 
-Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
-
-
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'processPayment'])->name('checkout');
+Route::get('/order-details', [OrderController::class, 'showDetails'])->name('order.details');
+Route::post('/update-order', [OrderController::class, 'updateOrder'])->name('order.update');
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [OrderController::class, 'storeOrder'])->name('order.store');
 

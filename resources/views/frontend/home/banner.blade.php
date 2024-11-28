@@ -14,7 +14,7 @@
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
                             <h1 class="h1 text-success"><b>MinimalWangi</b></h1>
-                            <h3 class="h2">Temukan Aroma Tanda Tangan Anda</h3>
+                            <h3 class="h2">Temukan Aroma Signature Anda</h3>
                             <p>
                                 Nikmati koleksi parfum premium kami. Dari yang segar dan floral hingga yang kayu dan oriental,
                                 temukan aroma yang sempurna yang menceritakan kisah unik Anda.

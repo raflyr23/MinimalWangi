@@ -47,7 +47,7 @@
                             <div class="col-auto">
                                 <ul class="list-inline pb-3">
                                     <li class="list-inline-item text-right">
-                                        Quantity
+                                        Jumlah
                                     </li>
                                     <li class="list-inline-item">
                                         <input type="number" id="manual-quantity" name="product-quantity" class="form-control" style="width: 60px;" placeholder="Qty" min="1">
@@ -55,7 +55,7 @@
                                 </ul>
                             </div>
                             <div class="col d-grid">
-                                <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocart">Add To Cart</button>
+                                <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocart">Tambah ke Keranjang</button>
                             </div>
                         </form>
                     </div>

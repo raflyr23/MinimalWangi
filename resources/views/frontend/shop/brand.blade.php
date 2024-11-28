@@ -2,10 +2,9 @@
     <div class="container my-4">
         <div class="row text-center py-3">
             <div class="col-lg-6 m-auto">
-                <h1 class="h1">Our Brands</h1>
+                <h1 class="h1">Merek Kami</h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    Lorem ipsum dolor sit amet.
+                    Temukan kualitas dan kepercayaan di balik kemitraan kami. Setiap merek mewakili komitmen terhadap keunggulan dan inovasi.
                 </p>
             </div>
             <div class="col-lg-9 m-auto tempaltemo-carousel">

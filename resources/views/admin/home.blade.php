@@ -3,6 +3,10 @@
   <head>
     <!-- Required meta tags -->
     @include('admin.css')
+
+    <style class="text/css">
+    
+    </style>
   </head>
   <body>
     <div class="container-scroller">

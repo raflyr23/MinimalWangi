@@ -8,12 +8,29 @@ use App\Models\User;
 use App\Models\product;
 use App\Models\cart;
 use App\Models\order;
+use App\Models\order_detail;
 class HomeController extends Controller
 {
     public function redirect(){
         $usertype=Auth::user()->usertype;
         if($usertype=="1"){
-            return view('admin.home');
+
+            $total_product=product::all()->count();
+            $total_order=order::all()->count();
+            $total_customer=user::all()->count();
+            
+            $order=order_detail::all();
+            $total_revenue=0;
+
+            foreach($order as $order){
+
+                $total_revenue=$total_revenue + $order->harga;
+            }
+
+            $total_delivered=order::where('delivery_status','=','dikirim')->get()->count();
+            $total_processing=order::where('delivery_status','=','diproses')->get()->count();
+
+            return view('admin.home', compact ('total_product','total_order','total_customer', 'total_revenue', 'total_delivered','total_processing'));
     }
     else{
         return view('frontend.home.home');
@@ -33,12 +50,53 @@ class HomeController extends Controller
         return view('frontend.about.about');
     }
 
-    public function shop()
+    public function shop(Request $request)
     {
-        $product=product::all();
-       //untuk beralih ke tampilan shop
+        // Get the category from the query string
+        $category = $request->get('categories_name');
+        
+        // If a category is selected, filter products by that category
+        if ($category) {
+            $product = Product::where('categories_name', $category)->paginate(9);
+        } else {
+            // Otherwise, get all products
+            $product = Product::paginate(9);
+        }
+        
+        // Return the view with the filtered products
         return view('frontend.shop.shop', compact('product'));
     }
+    
+    
+
+public function product_search(Request $request)
+{
+    // Ambil kata kunci pencarian dari parameter 'search'
+    $search_text = $request->search;
+
+    // Jika kata kunci kosong, tampilkan semua produk
+    if (empty($search_text)) {
+        $product = Product::paginate(9);
+        $message = null; // Tidak ada pesan jika pencarian kosong
+    } else {
+        // Cari produk yang sesuai dengan kata kunci pencarian
+        $product = Product::where('nama_produk', 'LIKE', "%$search_text%")->paginate(9);
+
+        // Jika tidak ada produk yang ditemukan
+        if ($product->isEmpty()) {
+            $message = "Produk yang Anda cari tidak ditemukan.";
+        } else {
+            $message = null; // Tidak ada pesan jika produk ditemukan
+        }
+    }
+
+    // Kembalikan data ke view dengan mengirimkan variabel produk dan pesan jika ada
+    return view('frontend.shop.shop', compact('product', 'message'));
+}
+
+
+
+
 
     public function contact()
     {
@@ -70,36 +128,53 @@ public function add_cart(Request $request, $id)
     }
 
     $user = Auth::user();
-    $product = Product::findOrFail($id); // Gunakan `findOrFail` agar error handling lebih baik
+    $product = Product::findOrFail($id);
+
+    // Ambil quantity dari input, minimal defaultnya 1
+    $quantity = max(1, intval($request->input('product-quantity'))); 
+
+    // Cek apakah produk sudah ada di keranjang
+    $existingCart = Cart::where('user_id', $user->id)
+                        ->where('product_id', $id)
+                        ->first();
+
+    if ($existingCart) {
+        $existingCart->jumlah += $quantity; // Tambahkan quantity
+        $existingCart->save();
+
+        return redirect()->back()->with('success', 'Produk berhasil ditambah ke keranjang.');
+    }
+
+    // Tambah item baru ke keranjang
     $cart = new Cart;
 
     // Data pengguna
     $cart->name = $user->name;
     $cart->email = $user->email;
-    $cart->no_telp = $user->no_telp ?? 'N/A'; // Default jika no_telp kosong
-    $cart->alamat = $user->alamat ?? 'N/A';   // Default jika alamat kosong
+    $cart->no_telp = $user->no_telp ?? 'N/A';
+    $cart->alamat = $user->alamat ?? 'N/A';
     $cart->user_id = $user->id;
 
     // Data produk
     $cart->image = $product->image;
     $cart->nama_produk = $product->nama_produk;
-
-    // Hitung harga berdasarkan diskon
-    if ($product->diskon && $product->diskon != '0%') {
-        $cart->harga = $product->harga - ($product->harga * intval($product->diskon) / 100);
-    } else {
-        $cart->harga = $product->harga;
-    }
-
     $cart->product_id = $product->id;
 
-    // Set jumlah default ke 1
-    $cart->jumlah = 1;
+    // Hitung harga berdasarkan diskon
+    $cart->harga = $product->diskon && $product->diskon != '0%' 
+        ? $product->harga - ($product->harga * intval($product->diskon) / 100)
+        : $product->harga;
+
+    // Set jumlah sesuai input pengguna
+    $cart->jumlah = $quantity;
 
     $cart->save();
 
-    return redirect()->back()->with('success', 'Product added to cart with quantity of 1.');
+    return redirect()->back()->with('success', "Produk berhasil ditambah ke keranjang");
 }
+
+
+
 
 
 public function show_cart()

@@ -13,12 +13,12 @@
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
-                            <h1 class="h1 text-success"><b>MinimalWangi</b> Collection</h1>
-                                <h3 class="h2">Discover Your Signature Scent</h3>
-                                <p>
-                                    Experience our curated collection of premium fragrances. From fresh and floral to woody and oriental, 
-                                    find the perfect scent that tells your unique story.
-                                </p>
+                            <h1 class="h1 text-success"><b>MinimalWangi</b></h1>
+                            <h3 class="h2">Temukan Aroma Tanda Tangan Anda</h3>
+                            <p>
+                                Nikmati koleksi parfum premium kami. Dari yang segar dan floral hingga yang kayu dan oriental,
+                                temukan aroma yang sempurna yang menceritakan kisah unik Anda.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -32,11 +32,11 @@
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
-                            <h1 class="h1">Luxury Fragrances</h1>
-                            <h3 class="h2">For Every Occasion</h3>
+                            <h1 class="h1">Parfum Mewah</h1>
+                            <h3 class="h2">Untuk Setiap Kesempatan</h3>
                             <p>
-                                From day to night, casual to formal, discover fragrances that complement your lifestyle.
-                                Each scent is carefully selected to ensure lasting impression.
+                                Dari siang hingga malam, kasual hingga formal, temukan parfum yang melengkapi gaya hidup Anda.
+                                Setiap aroma dipilih dengan cermat untuk memastikan kesan yang bertahan lama.
                             </p>
                         </div>
                     </div>
@@ -51,11 +51,11 @@
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
-                            <h1 class="h1">Exclusive Collections</h1>
-                            <h3 class="h2">Limited Edition Fragrances</h3>
+                            <h1 class="h1">Koleksi Eksklusif</h1>
+                            <h3 class="h2">Parfum Edisi Terbatas</h3>
                             <p>
-                                Explore our exclusive collection of limited edition fragrances.
-                                Unique scents crafted by master perfumers for the distinguished individual.
+                                Jelajahi koleksi parfum edisi terbatas kami.
+                                Aroma unik yang diciptakan oleh pembuat parfum ahli untuk individu yang terhormat.
                             </p>
                         </div>
                     </div>

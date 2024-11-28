@@ -20,12 +20,12 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="no_telp" value="{{ __('no_telp') }}" />
+                <x-label for="no_telp" value="{{ __('No Telp') }}" />
                 <x-input id="no_telp" class="block mt-1 w-full" type="number" name="no_telp" :value="old('no_telp')" required autocomplete="username" />
             </div>
 
             <div class="mt-4">
-                <x-label for="alamat" value="{{ __('alamat') }}" />
+                <x-label for="alamat" value="{{ __('Alamat') }}" />
                 <x-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autocomplete="username" />
             </div>
 

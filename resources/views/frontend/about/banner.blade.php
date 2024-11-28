@@ -1,35 +1,49 @@
-<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="w-100 pt-1 mb-5 text-right">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<section class="bg-white py-5" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./assets/img/banner_about.jpg'); background-size: cover; background-position: center; height: 30vh;">
+    <div class="container text-center text-white">
+        <h1 class="text-uppercase fw-bold style= font-family: 'Poppins', serif;">MinimalWangi</h1>
+        <!-- Konten di sini -->
+    </div>
+</section>
+
+<!-- Penjelasan MinimalWangi -->
+<div class="container mt-2">
+    <div class="row align-items-center">
+        <div class="col-md-6 order-md-1">
+            <img src="./assets/img/about1.jpg" alt="Warisan" class="img-fluid rounded">
         </div>
-        <form action="" method="get" class="modal-content modal-body border-0 p-0">
-            <div class="input-group mb-2">
-                <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                <button type="submit" class="input-group-text bg-success text-light">
-                    <i class="fa fa-fw fa-search text-white"></i>
-                </button>
-            </div>
-        </form>
+        <div class="col-md-6 order-md-2">
+            <h2 class="fw-bold style= font-family: 'Poppins', serif;">Warisan Keunggulan</h2>
+            <p class="text-muted">
+                MinimalWangi telah menjadi sinonim dengan parfum berkualitas tinggi, menggabungkan seni Timur dengan inovasi modern. Kami berkomitmen untuk menciptakan parfum yang luar biasa bagi konsumen yang cerdas.
+            </p>
+        </div>
     </div>
 </div>
 
-
-
-<section class="bg-success py-5">
-    <div class="container">
-        <div class="row align-items-center py-5">
-            <div class="col-md-8 text-white">
-                <h1>About Us</h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-            </div>
-            <div class="col-md-4">
-                <img src="assets/img/about-hero.svg" alt="About Hero">
-            </div>
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <div class="col-md-6 order-md-2">
+            <img src="./assets/img/about2.jpg" alt="Warisan" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 order-md-1">
+            <h2 class="fw-bold style= font-family: 'Poppins', serif;">Menginovasi Tradisi</h2>
+            <p class="text-muted">
+                Dengan menggabungkan kerajinan tradisional terbaik dengan teknik-teknik terbaru, kami memastikan bahwa setiap ciptaan tetap abadi namun tetap modern.
+            </p>
         </div>
     </div>
-</section>
+</div>
+
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <div class="col-md-6 order-md-1">
+            <img src="./assets/img/about3.jpg" alt="Warisan" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 order-md-2">
+            <h2 class="fw-bold style= font-family: 'Poppins', serif;">Masa Depan yang Harum</h2>
+            <p class="text-muted">
+                Komitmen kami terhadap keunggulan terus berlanjut saat kami berkembang secara global, berbagi passion kami dalam bercerita melalui parfum dengan dunia.
+            </p>
+        </div>
+    </div>
+</div>

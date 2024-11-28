@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <title>MinimalWangi - Cart</title>
+    <title>MinimalWangi - Keranjang</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,31 +12,31 @@
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 
-    <!-- Load fonts style after rendering the layout styles -->
+    <!-- Memuat font setelah layout selesai -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 
 </head>
 <body>
-    @include('frontend.home.header')
+    @include('frontend.shop.header')
 
     <div class="container my-5">
         <div class="row">
-            <!-- Cart Header -->
+            <!-- Header Keranjang -->
             <div class="col-12 text-center mb-4">
-                <h2 class="cart-header">Your Cart</h2>
+                <h2 class="cart-header">Keranjang Anda</h2>
             </div>
 
-            <!-- Cart Table -->
+            <!-- Tabel Keranjang -->
             <div class="col-12">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Image</th>
-                            <th>Action</th>
+                            <th>Produk</th>
+                            <th>Jumlah</th>
+                            <th>Harga</th>
+                            <th>Gambar</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,7 +55,7 @@
                                     <form action="{{ url('remove_cart', $item->id) }}" method="GET">
                                         @csrf
                                         @method('get')
-                                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
@@ -64,21 +64,20 @@
                             @endphp
                         @empty
                             <tr>
-                                <td colspan="5" class="empty-cart-message text-center">Your cart is empty!</td>
+                                <td colspan="5" class="empty-cart-message text-center">Keranjang Anda kosong!</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            <!-- Total Price and Checkout Button -->
+            <!-- Total Harga dan Tombol Checkout -->
             @if($total > 0)
             <div class="col-12 text-right">
                 <div class="total-price mb-4">
-                    <strong>Total Price: RP. {{ number_format($total, 0, ',', '.') }}</strong>
+                    <strong>Total Harga: RP. {{ number_format($total, 0, ',', '.') }}</strong>
                 </div>
                 <a href="{{ route('order.details') }}" class="btn btn-primary btn-lg">Lihat Detail Pemesanan</a>
-
             </div>
             @endif
         </div>
@@ -86,7 +85,6 @@
 
     @include('frontend.home.footer')
 
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>

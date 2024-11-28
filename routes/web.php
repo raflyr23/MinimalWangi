@@ -23,11 +23,15 @@ Route::middleware([
 });
 
 // Tambahkan rute ini
-Route::get('redirect', [HomeController::class, 'redirect']);
+Route::get('/redirect', [HomeController::class, 'redirect']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user_order', [OrderController::class, 'index'])->name('order.index');
+});
 // Route untuk halaman publik
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
-Route::get('/shop', [HomeController::class, 'shop']);
+Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
+Route::get('/product_search', [HomeController::class, 'product_search']);
 Route::get('/contact', [HomeController::class, 'contact']);
 Route::get('/detail', [HomeController::class, 'detail']);
 Route::get('/view_categories', [AdminController::class, 'view_categories']);
@@ -39,6 +43,11 @@ Route::get('/show_product', [AdminController::class, 'show_product']);
 Route::get('/delete_product/{id}', [AdminController::class, 'delete_product']);
 Route::get('/update_product/{id}', [AdminController::class, 'update_product']);
 Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_product_confirm']);
+Route::get('/order', [AdminController::class, 'order']);
+Route::put('/update-order/{id}', [AdminController::class, 'updateOrder'])->name('update.order');
+Route::get('/search', [AdminController::class, 'searchdata']);
+
+
 Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 Route::get('/show_cart', [HomeController::class, 'show_cart']);
@@ -51,8 +60,6 @@ Route::get('/order-details', [OrderController::class, 'showDetails'])->name('ord
 Route::post('/update-order', [OrderController::class, 'updateOrder'])->name('order.update');
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [OrderController::class, 'storeOrder'])->name('order.store');
-
-
-Route::post('/checkout', [OrderController::class, 'storeOrder'])->name('order.store');
-Route::get('/payment', [OrderController::class, 'showPayment'])->name('order.payment');
-
+Route::post('/checkout', [CheckoutController::class, 'processPayment'])->name('checkout');
+Route::post('/confirm_payment', [OrderController::class, 'add_order']);
+Route::get('/print-order/{id}', [OrderController::class, 'printOrder'])->name('order.print');

@@ -37,33 +37,31 @@
                 
 
                 <div class="dropdown">
-                    <a class="nav-icon position-relative text-decoration-none dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+    <a class="nav-icon position-relative text-decoration-none dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+        @if (Route::has('login'))
+            @auth
+                <li><a class="dropdown-item" href="dashboard">User</a></li>
+                <li><a class="dropdown-item" href="{{ route('order.index') }}">Order</a></li>
+                <li>
+                    <a href="#" class="dropdown-item" 
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+            @else
+                <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
+            @endauth
+        @endif
+    </ul>
+</div>
 
-                        @if (Route::has('login'))
-                        @auth
-                            <li><a class="dropdown-item" href="dashboard">User</a></li>
-                            <li>
-                                <a href="#" class="dropdown-item" 
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                    
-                        @else
-                            <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                       
-                        
-                            <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
-                       @endauth
-                            @endif
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

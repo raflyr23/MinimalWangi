@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\categories;
 use App\Models\product;
+use App\Models\order;
 class AdminController extends Controller
 {
     public function view_categories(){
@@ -96,5 +97,40 @@ public function update_product_confirm(Request $request, $id){
     $product->save();
     return redirect()->back()->with('message', 'Produk berhasil diupdate');
 }
+
+public function order(){
+    $order = order::all();
+
+
+    return view('admin.order', compact('order'));
+}
+
+public function updateOrder(Request $request, $id)
+{
+    $request->validate([
+        'no_resi' => 'nullable|string|max:255',
+        'delivery_status' => 'required|string|in:Diproses,Dikirim,Selesai,Dibatalkan',
+    ]);
+
+    $order = Order::find($id);
+    if (!$order) {
+        return redirect()->back()->withErrors(['error' => 'Order not found.']);
+    }
+
+    $order->no_resi = $request->no_resi;
+    $order->delivery_status = $request->delivery_status;
+    $order->save();
+
+    return redirect()->back()->with('success', 'Order updated successfully.');
+}
+
+public function searchdata(request $request){
+
+    $searchText=$request->search;
+    $order=order::where('name','LIKE',"%$searchText%")->orwhere ('payment_status','LIKE',"%$searchText%")->get();
+
+    return view('admin.order', compact('order'));
+}
+
 
 }

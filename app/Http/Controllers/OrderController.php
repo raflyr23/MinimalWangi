@@ -6,10 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\OrderItem;
+use App\Models\order_detail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
+
+    public function index()
+    {
+        $orders = Auth::user()->orders; // Ambil data order milik user (sesuaikan logika ini)
+        return view('frontend.home.order', compact('orders'));
+    }
     public function showDetails()
     {
         $user = Auth::user(); // Mengambil data user
@@ -21,23 +28,7 @@ class OrderController extends Controller
         return view('frontend.cart.checkout', compact('cart', 'total', 'user'));
     }
 
-    public function updateOrder(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'no_telp' => 'required|string|max:15',
-            'alamat' => 'required|string',
-        ]);
-
-        $user = Auth::user();
-        $user->update([
-            'name' => $request->name,
-            'no_telp' => $request->no_telp,
-            'alamat' => $request->alamat,
-        ]);
-
-        return redirect()->route('order.details')->with('success', 'User data updated successfully!');
-    }
+   
 
     public function storeOrder(Request $request)
 {
@@ -68,23 +59,98 @@ class OrderController extends Controller
         'status' => 'pending',
     ]);
 
-    // Simpan item order ke tabel order_items
-    foreach ($cart as $item) {
-        OrderItem::create([
-            'order_id' => $order->id,
-            'product_id' => $item->product_id,
-            'quantity' => $item->jumlah,
-            'price' => $item->harga,
-            'total_price' => $item->harga * $item->jumlah,
-        ]);
-    }
-
-    // Hapus keranjang setelah pesanan disimpan
-    Cart::where('user_id', $user->id)->delete();
-
-    return redirect()->route('order.payment', ['order_id' => $order->id]);
+   
 }
 
+public function add_order(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'no_telp' => 'required|string|max:15',
+        'alamat' => 'required|string',
+        'image' => 'required|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    if (!Auth::check()) {
+        return redirect('login')->with('error', 'Please login to complete your order.');
+    }
+
+    $user = Auth::user();
+    $cart = Cart::where('user_id', $user->id)->get();
+
+    if ($cart->isEmpty()) {
+        return redirect()->back()->withErrors(['error' => 'Your cart is empty.']);
+    }
+
+    $total = $cart->sum(function ($item) {
+        return $item->harga * $item->jumlah;
+    });
+
+    // Create a new order
+    $orders = new Order();
+    $orders->name = $request->name; // Data dari input
+    $orders->email = $user->email; // Email tetap dari akun
+    $orders->no_hp = $request->no_telp; // Data dari input
+    $orders->alamat = $request->alamat; // Data dari input
+    $orders->user_id = $user->id;
+
+    // Handle image upload for proof of payment
+    $image = $request->file('image');
+    $imagename = time() . '.' . $image->getClientOriginalExtension();
+    $image->move(public_path('uploads/payments'), $imagename);
+    $orders->bukti_pembayaran = $imagename;
+
+    $orders->payment_status = 'Diproses';
+    $orders->delivery_status = 'Diproses';
+    $orders->save();
+
+    // Add order details for each item in the cart
+    foreach ($cart as $item) {
+        $order_details = new order_detail();
+        $order_details->order_id = $orders->id;
+        $order_details->nama_produk = $item->nama_produk;
+        $order_details->jumlah = $item->jumlah;
+        $order_details->harga = $item->harga;
+        $order_details->product_id = $item->product_id; // assuming 'product_id' exists in the Cart model
+        $order_details->save();
+    }
+
+    // Optionally, you can clear the cart after the order is placed
+    Cart::where('user_id', $user->id)->delete();
+
+    return redirect()->back()->with('success', 'Order placed successfully');
+}
+
+public function updateOrder(Request $request, $id)
+{
+    $request->validate([
+        'no_resi' => 'nullable|string|max:255',
+        'delivery_status' => 'required|string|in:Diproses,Dikirim,Selesai,Dibatalkan',
+    ]);
+
+    $order = Order::find($id);
+    if (!$order) {
+        return redirect()->back()->withErrors(['error' => 'Order not found.']);
+    }
+
+    $order->no_resi = $request->no_resi;
+    $order->delivery_status = $request->delivery_status;
+    $order->save();
+
+    return redirect()->back()->with('success', 'Order updated successfully.');
+}
+
+public function printOrder($id)
+{
+    // Ambil data order berdasarkan ID
+    $order = Order::with('orderDetails')->findOrFail($id);
+
+    // Generate PDF
+    $pdf = PDF::loadView('admin.print-order', compact('order'));
+
+    // Stream PDF ke browser
+    return $pdf->stream('order-'.$id.'.pdf');
+}
 
 
 

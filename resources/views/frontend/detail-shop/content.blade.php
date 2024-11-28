@@ -1,5 +1,11 @@
 <section class="bg-light">
     <div class="container pb-5">
+        @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="row">
             <!-- Kolom Gambar Produk -->
             <div class="col-lg-5 mt-5">
@@ -42,16 +48,9 @@
                                 <ul class="list-inline pb-3">
                                     <li class="list-inline-item text-right">
                                         Quantity
-                                        <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                     </li>
                                     <li class="list-inline-item">
-                                        <span class="btn btn-success" id="btn-minus">-</span>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <span class="badge bg-secondary" id="var-value">1</span>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <span class="btn btn-success" id="btn-plus">+</span>
+                                        <input type="number" id="manual-quantity" name="product-quantity" class="form-control" style="width: 60px;" placeholder="Qty" min="1">
                                     </li>
                                 </ul>
                             </div>
@@ -59,10 +58,25 @@
                                 <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocart">Add To Cart</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+const form = document.querySelector('form');
+const manualQuantity = document.getElementById('manual-quantity');
+
+form.addEventListener('submit', function (e) {
+    const manualValue = parseInt(manualQuantity.value, 10);
+
+    // Validasi manual
+    if (isNaN(manualValue) || manualValue <= 0) {
+        e.preventDefault(); // Cegah pengiriman form
+        alert('Masukkan jumlah produk yang valid.');
+        return;
+    }
+});
+</script>

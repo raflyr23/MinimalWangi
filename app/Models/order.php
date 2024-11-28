@@ -20,9 +20,9 @@ class order extends Model
         'delivery_status',
     ];
 
-    public function orderItems()
+public function orderDetails()
 {
-    return $this->hasMany(OrderItem::class);
+    return $this->hasMany(order_detail::class);
 }
 
 }

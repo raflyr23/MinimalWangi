@@ -16,6 +16,9 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins&display=swap" rel="stylesheet">
 <!--
     
 TemplateMo 559 Zay Shop
@@ -29,16 +32,14 @@ https://templatemo.com/tm-559-zay-shop
 
 
     <!-- Header -->
-  @include('frontend.about.header')
+  @include('frontend.shop.header')
     <!-- Close Header -->
 
     <!-- Modal -->
     @include('frontend.about.banner')
     <!-- Close Banner -->
 
-    <!-- Start Section -->
-    @include('frontend.about.services')
-    <!-- End Section -->
+  
 
     <!-- Start Brands -->
     @include('frontend.about.brand')

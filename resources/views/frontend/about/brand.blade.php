@@ -2,21 +2,20 @@
     <div class="container my-4">
         <div class="row text-center py-3">
             <div class="col-lg-6 m-auto">
-                <h1 class="h1">Our Brands</h1>
+                <h1 class="h1">Merek Kami</h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    Lorem ipsum dolor sit amet.
+                    Temukan kualitas dan kepercayaan di balik kemitraan kami. Setiap merek mewakili komitmen terhadap keunggulan dan inovasi.
                 </p>
             </div>
             <div class="col-lg-9 m-auto tempaltemo-carousel">
                 <div class="row d-flex flex-row">
-                    <!--Controls-->
+                    <!--Kontrol-->
                     <div class="col-1 align-self-center">
                         <a class="h1" href="#templatemo-slide-brand" role="button" data-bs-slide="prev">
                             <i class="text-light fas fa-chevron-left"></i>
                         </a>
                     </div>
-                    <!--End Controls-->
+                    <!--Akhir Kontrol-->
 
                     <!--Carousel Wrapper-->
                     <div class="col">
@@ -24,76 +23,76 @@
                             <!--Slides-->
                             <div class="carousel-inner product-links-wap" role="listbox">
 
-                                <!--First slide-->
+                                <!--Slide Pertama-->
                                 <div class="carousel-item active">
                                     <div class="row">
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Logo Merek"></a>
                                         </div>
                                     </div>
                                 </div>
-                                <!--End First slide-->
+                                <!--Akhir Slide Pertama-->
 
-                                <!--Second slide-->
+                                <!--Slide Kedua-->
                                 <div class="carousel-item">
                                     <div class="row">
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Logo Merek"></a>
                                         </div>
                                     </div>
                                 </div>
-                                <!--End Second slide-->
+                                <!--Akhir Slide Kedua-->
 
-                                <!--Third slide-->
+                                <!--Slide Ketiga-->
                                 <div class="carousel-item">
                                     <div class="row">
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Logo Merek"></a>
                                         </div>
                                         <div class="col-3 p-md-5">
-                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Logo Merek"></a>
                                         </div>
                                     </div>
                                 </div>
-                                <!--End Third slide-->
+                                <!--Akhir Slide Ketiga-->
 
                             </div>
-                            <!--End Slides-->
+                            <!--Akhir Slides-->
                         </div>
                     </div>
-                    <!--End Carousel Wrapper-->
+                    <!--Akhir Carousel Wrapper-->
 
-                    <!--Controls-->
+                    <!--Kontrol-->
                     <div class="col-1 align-self-center">
                         <a class="h1" href="#templatemo-slide-brand" role="button" data-bs-slide="next">
                             <i class="text-light fas fa-chevron-right"></i>
                         </a>
                     </div>
-                    <!--End Controls-->
+                    <!--Akhir Kontrol-->
                 </div>
             </div>
         </div>

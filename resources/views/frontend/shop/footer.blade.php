@@ -15,7 +15,7 @@
                     </li>
                     <li>
                         <i class="fa fa-envelope fa-fw"></i>
-                        <a class="text-decoration-none" href="mailto:infominimalwangi@gmail.com">info@minimalwangi.com</a>
+                        <a class="text-decoration-none" href="mailto:infominimalwangi@gmail.com">infominimalwangi@gmail.com</a>
                     </li>
                 </ul>
             </div>

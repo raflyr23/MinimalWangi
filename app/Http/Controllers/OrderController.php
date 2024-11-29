@@ -8,13 +8,14 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\order_detail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Review;
 
 class OrderController extends Controller
 {
 
     public function index()
     {
-        $orders = Auth::user()->orders; // Ambil data order milik user (sesuaikan logika ini)
+        $orders = Auth::user()->orders()->with(['orderDetails.product'])->get(); // Ambil data order milik user (sesuaikan logika ini)
         return view('frontend.home.order', compact('orders'));
     }
     public function showDetails()
@@ -151,6 +152,27 @@ public function printOrder($id)
     // Stream PDF ke browser
     return $pdf->stream('order-'.$id.'.pdf');
 }
+
+public function submitReview(Request $request)
+{
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'order_id' => 'required|exists:orders,id',
+        'rating' => 'required|integer|min:1|max:5',
+        'comment' => 'nullable|string|max:500'
+    ]);
+
+    $review = Review::create([
+        'user_id' => Auth::id(),
+        'product_id' => $request->product_id,
+        'order_id' => $request->order_id,
+        'rating' => $request->rating,
+        'comment' => $request->comment
+    ]);
+
+    return redirect()->back()->with('success', 'Review submitted successfully!');
+}
+
 
 
 

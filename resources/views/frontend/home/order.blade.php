@@ -22,15 +22,16 @@
 
 @include('frontend.home.header')
 
-<div class="container mt-4">
-    <h2>Daftar Order Anda</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Daftar Order Anda</h2>
+    
     @if ($orders->isEmpty())
-        <p>Anda belum memiliki order.</p>
+        <p class="text-center">Anda belum memiliki order.</p>
     @else
         @foreach ($orders as $order)
-            <div class="order-card mb-4">
-                
-                <div class="order-info">
+            <div class="order-card mb-4 p-4 shadow-lg rounded-lg border">
+                <div class="order-info mb-4">
+                    <h4>Order Details</h4>
                     <p><strong>Customer Name:</strong> {{ $order->name }}</p>
                     <p><strong>Email:</strong> {{ $order->email }}</p>
                     <p><strong>Phone:</strong> {{ $order->no_hp }}</p>
@@ -40,8 +41,7 @@
                     <p><strong>No Resi:</strong> {{ $order->no_resi }}</p>
                 </div>
 
-                <!-- Order Details Table -->
-                <h3>Order Details</h3>
+                <h3>Order Items</h3>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -68,6 +68,34 @@
                         </tr>
                     </tbody>
                 </table>
+
+                @if($order->delivery_status === 'Selesai')
+                    @foreach($order->orderDetails as $detail)
+                        @if($detail->product && !$detail->product->reviews()->where('user_id', Auth::id())->where('order_id', $order->id)->exists())
+                            <div class="review-form mt-3">
+                                <h4>Review for {{ $detail->nama_produk }}</h4>
+                                <form action="{{ route('review.submit') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $detail->product_id }}">
+                                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                    
+                                    <div class="rating">
+                                        @for($i = 5; $i >= 1; $i--)
+                                            <input type="radio" name="rating" value="{{ $i }}" id="star{{ $i }}_{{ $detail->id }}">
+                                            <label for="star{{ $i }}_{{ $detail->id }}">☆</label>
+                                        @endfor
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <textarea name="comment" class="form-control" placeholder="Write your review here..."></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-success text-white mt-2">Submit Review</button>
+                                </form>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
             </div>
         @endforeach
     @endif
@@ -75,12 +103,10 @@
 
 @include('frontend.home.footer')
 
- <!-- Start Script -->
- <script src="assets/js/jquery-1.11.0.min.js"></script>
- <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
- <script src="assets/js/bootstrap.bundle.min.js"></script>
- <script src="assets/js/templatemo.js"></script>
- <script src="assets/js/custom.js"></script>
- <!-- End Script -->
+<script src="assets/js/jquery-1.11.0.min.js"></script>
+<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/custom.js"></script>
+
 </body>
 </html>

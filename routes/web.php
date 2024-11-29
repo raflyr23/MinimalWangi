@@ -63,3 +63,4 @@ Route::post('/checkout', [OrderController::class, 'storeOrder'])->name('order.st
 Route::post('/checkout', [CheckoutController::class, 'processPayment'])->name('checkout');
 Route::post('/confirm_payment', [OrderController::class, 'add_order']);
 Route::get('/print-order/{id}', [OrderController::class, 'printOrder'])->name('order.print');
+Route::post('/submit-review', [OrderController::class, 'submitReview'])->name('review.submit');

@@ -228,5 +228,31 @@ body, ul, li, p, a, label, input, div {
   }
 }
 
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  cursor: pointer;
+  font-size: 25px;
+  color: #ddd;
+  padding: 5px;
+}
+
+.rating input:checked ~ label {
+  color: #ffd700;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #ffd700;
+}
+
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {}

@@ -1,16 +1,17 @@
-<section class="bg-light">
-    <div class="container pb-5">
+<section class="bg-light py-5">
+    <div class="container">
         @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+        
         <div class="row">
             <!-- Kolom Gambar Produk -->
             <div class="col-lg-5 mt-5">
                 <div class="card mb-3">
-                    <img class="card-img img-fluid" src="product/{{ $product->image }}" alt="Product Image" id="product-detail">
+                    <img class="card-img img-fluid" src="product/{{ $product->image }}" alt="Gambar Produk" id="product-detail">
                 </div>
             </div>
 
@@ -40,7 +41,7 @@
                         <!-- Deskripsi Produk -->
                         <p class="py-2">{{ $product->deskripsi }}</p>
 
-                        <!-- Form untuk Tambah ke Keranjang -->
+                        <!-- Form Tambah ke Keranjang -->
                         <form action="{{ url('add_cart', $product->id) }}" method="POST">
                             @csrf
                             <input type="hidden" name="product-title" value="{{ $product->nama_produk }}">
@@ -55,9 +56,29 @@
                                 </ul>
                             </div>
                             <div class="col d-grid">
-                                <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocart">Tambah ke Keranjang</button>
+                                <button type="submit" class="btn btn-success btn-lg">Tambah ke Keranjang</button>
                             </div>
                         </form>
+                    </div>
+
+                    <!-- Ulasan Produk -->
+                    <div class="product-reviews mt-4">
+                        <h3>Ulasan Pelanggan</h3>
+                        @if($product->reviews->count() > 0)
+                            @foreach($product->reviews as $review)
+                            <div class="review-item border-bottom py-3">
+                                <div class="rating">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <span class="{{ $i <= $review->rating ? 'text-warning' : 'text-muted' }}">★</span>
+                                    @endfor
+                                </div>
+                                <p class="mb-1">{{ $review->comment }}</p>
+                                <small class="text-muted">Oleh {{ $review->user->name }} pada {{ $review->created_at->format('M d, Y') }}</small>
+                            </div>
+                            @endforeach
+                        @else
+                            <p>Belum ada ulasan.</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -72,9 +93,9 @@ const manualQuantity = document.getElementById('manual-quantity');
 form.addEventListener('submit', function (e) {
     const manualValue = parseInt(manualQuantity.value, 10);
 
-    // Validasi manual
+    // Validasi input jumlah
     if (isNaN(manualValue) || manualValue <= 0) {
-        e.preventDefault(); // Cegah pengiriman form
+        e.preventDefault(); // Mencegah pengiriman form
         alert('Masukkan jumlah produk yang valid.');
         return;
     }

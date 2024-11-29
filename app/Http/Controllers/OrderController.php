@@ -101,8 +101,8 @@ public function add_order(Request $request)
     $image->move(public_path('uploads/payments'), $imagename);
     $orders->bukti_pembayaran = $imagename;
 
-    $orders->payment_status = 'Diproses';
-    $orders->delivery_status = 'Diproses';
+    $orders->payment_status = 'Pending';
+    $orders->delivery_status = '';
     $orders->save();
 
     // Add order details for each item in the cart

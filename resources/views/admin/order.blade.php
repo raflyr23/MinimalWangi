@@ -94,7 +94,7 @@
                             <th>No Resi</th>
                             <th>Payment Status</th>
                             <th>Delivery Status</th>
-                            <th>Actions</th>
+                            <th>Update Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,31 +111,43 @@
                             <td>{{ $order->payment_status }}</td>
                             <td>{{ $order->delivery_status }}</td>
                             <td>
-                                <form action="{{ url('/update-order/'.$order->id) }}" method="POST">
+                                <form action="{{ url('/update-order-status/'.$order->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <input type="text" name="no_resi" value="{{ $order->no_resi }}" class="form-control">
-                                    <select name="delivery_status" class="form-select">
+                
+                                    <!-- Payment Status -->
+                                    <label for="payment_status_{{ $order->id }}" class="form-label d-block">Payment Status</label>
+                                    <select id="payment_status_{{ $order->id }}" name="payment_status" class="form-select mb-2">
+                                        <option value="Pending" {{ $order->payment_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="Paid" {{ $order->payment_status == 'Paid' ? 'selected' : '' }}>Paid</option>
+                                        <option value="Failed" {{ $order->payment_status == 'Failed' ? 'selected' : '' }}>Failed</option>
+                                    </select>
+                
+                                    <!-- Delivery Status -->
+                                    <label for="delivery_status_{{ $order->id }}" class="form-label d-block">Delivery Status</label>
+                                    <select id="delivery_status_{{ $order->id }}" name="delivery_status" class="form-select mb-2">
                                         <option value="Diproses" {{ $order->delivery_status == 'Diproses' ? 'selected' : '' }}>Diproses</option>
                                         <option value="Dikirim" {{ $order->delivery_status == 'Dikirim' ? 'selected' : '' }}>Dikirim</option>
                                         <option value="Selesai" {{ $order->delivery_status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
                                         <option value="Dibatalkan" {{ $order->delivery_status == 'Dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
                                     </select>
+                
+                                    <!-- No Resi -->
+                                    <label for="no_resi_{{ $order->id }}" class="form-label d-block">No Resi</label>
+                                    <input type="text" id="no_resi_{{ $order->id }}" name="no_resi" value="{{ $order->no_resi }}" class="form-control mb-2">
+                
                                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                                 </form>
-                                <div class="btn-container">
-                                    <button class="btn btn-info btn-sm" onclick="printOrder({{ $order->id }})">Print</button>
-                                </div>
                             </td>
                         </tr>
-
                         @empty
                         <tr>
-                            <td colspan="16">No data found</td>
+                            <td colspan="9">No data found</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
+                
             </div>
         </div>
     </div>

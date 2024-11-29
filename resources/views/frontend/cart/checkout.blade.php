@@ -23,7 +23,7 @@
     @include('frontend.home.header')
 
     <!-- Bagian Checkout -->
-    <div class="container my-5">
+     <div class="container my-5">
         <h2 class="text-center mb-4">Checkout</h2>
 
         <!-- Form Detail Pengguna -->
@@ -84,40 +84,104 @@
                 <strong>Total Harga: RP. {{ number_format($total, 0, ',', '.') }}</strong>
             </div>
 
+
+
             <!-- Tombol Checkout -->
             <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#paymentModal">Checkout</button>
 
             <!-- Modal Pembayaran -->
-            <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="paymentModalLabel">Pilih Metode Pembayaran</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Modal Pembayaran -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Pilih Metode Pembayaran</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Pilihan Metode Pembayaran -->
+                <div class="mb-4">
+                    <h6 class="mb-3">Metode Pembayaran</h6>
+                    <div class="d-flex flex-column">
+                        <!-- Opsi BCA -->
+                        <div class="payment-option mb-2">
+                            <input type="radio" name="payment_method" id="bankBCA" value="BCA" required>
+                            <label for="bankBCA" class="d-flex align-items-center">
+                                <img src="assets/img/bca.png" alt="Bank BCA" style="height: 40px; margin-right: 10px;">
+                                BCA
+                            </label>
                         </div>
-                        <div class="modal-body">
-                            <p>Bank Jago<br>2211102265<br>an/raflyromeo</p>
-                            <br>
-                            <label class="form-label" for="customFile">Unggah Bukti Pembayaran</label>
-                            <input type="file" class="form-control" id="customFile" name="image" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-primary">Konfirmasi dan Bayar</button>
+                
+                        <!-- Opsi Mandiri -->
+                        <div class="payment-option mb-2">
+                            <input type="radio" name="payment_method" id="bankMandiri" value="Mandiri" required>
+                            <label for="bankMandiri" class="d-flex align-items-center">
+                                <img src="assets/img/mandiri.png" alt="Bank Mandiri" style="height: 40px; margin-right: 10px;">
+                                Mandiri
+                            </label>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Detail Bank -->
+                <div id="detailsBCA" class="bank-details d-none">
+                    <h6 class="mb-2">Detail Pembayaran BCA</h6>
+                    <p>
+                        <strong>Bank BCA</strong><br>
+                        No. Rekening: 2211102265<br>
+                        Atas Nama: Rafly Romeo
+                    </p>
+                </div>
+                
+                <div id="detailsMandiri" class="bank-details d-none">
+                    <h6 class="mb-2">Detail Pembayaran Mandiri</h6>
+                    <p>
+                        <strong>Bank Mandiri</strong><br>
+                        No. Rekening: 2211102265<br>
+                        Atas Nama: Rafly Romeo
+                    </p>
+                </div>
+                
+
+                <!-- Unggah Bukti Pembayaran -->
+                <label class="form-label" for="customFile">Unggah Bukti Pembayaran</label>
+                <input type="file" class="form-control" id="customFile" name="image" required>
             </div>
-        </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Konfirmasi dan Bayar</button>
+            </div>
+        </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    @include('frontend.home.footer')
+<script>
+    // Ambil elemen input dan detail bank
+    const paymentInputs = document.querySelectorAll('input[name="payment_method"]');
+    const detailsBCA = document.getElementById('detailsBCA');
+    const detailsMandiri = document.getElementById('detailsMandiri');
 
-    <!-- Scripts -->
-    <script>
-        // Script untuk mengisi otomatis data dari profil
-        function fillFromAccount() {
+    // Fungsi untuk mengontrol tampilan detail
+    function toggleBankDetails() {
+        // Sembunyikan semua detail awalnya
+        detailsBCA.classList.add('d-none');
+        detailsMandiri.classList.add('d-none');
+
+        // Tampilkan detail sesuai input yang dipilih
+        if (document.getElementById('bankBCA').checked) {
+            detailsBCA.classList.remove('d-none');
+        } else if (document.getElementById('bankMandiri').checked) {
+            detailsMandiri.classList.remove('d-none');
+        }
+    }
+
+    // Tambahkan event listener ke semua input metode pembayaran
+    paymentInputs.forEach(input => {
+        input.addEventListener('change', toggleBankDetails);
+    });
+
+    // Script untuk mengisi otomatis data dari profil
+    function fillFromAccount() {
             const isChecked = document.getElementById('sameAsAccount').checked;
     
             if (isChecked) {
@@ -130,7 +194,8 @@
                 document.getElementById('alamat').value = '';
             }
         }
-    </script>
+</script>
+
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>

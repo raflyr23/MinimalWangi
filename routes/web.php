@@ -23,7 +23,7 @@ Route::middleware([
 });
 
 // Tambahkan rute ini
-Route::get('/redirect', [HomeController::class, 'redirect']);
+Route::get('/redirect', [HomeController::class, 'redirect'])->middleware('auth','verified');
 Route::middleware(['auth'])->group(function () {
     Route::get('/user_order', [OrderController::class, 'index'])->name('order.index');
 });
@@ -42,9 +42,11 @@ Route::post('/add_product', [AdminController::class, 'add_product']);
 Route::get('/show_product', [AdminController::class, 'show_product']);
 Route::get('/delete_product/{id}', [AdminController::class, 'delete_product']);
 Route::get('/update_product/{id}', [AdminController::class, 'update_product']);
-Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_product_confirm']);
 Route::get('/order', [AdminController::class, 'order']);
 Route::put('/update-order/{id}', [AdminController::class, 'updateOrder'])->name('update.order');
+Route::put('/update-order-status/{id}', [AdminController::class, 'updateOrderStatus']);
+
+
 Route::get('/search', [AdminController::class, 'searchdata']);
 
 

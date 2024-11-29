@@ -105,24 +105,22 @@ public function order(){
     return view('admin.order', compact('order'));
 }
 
-public function updateOrder(Request $request, $id)
+public function updateOrderStatus(Request $request, $id)
 {
-    $request->validate([
-        'no_resi' => 'nullable|string|max:255',
-        'delivery_status' => 'required|string|in:Diproses,Dikirim,Selesai,Dibatalkan',
-    ]);
-
     $order = Order::find($id);
-    if (!$order) {
-        return redirect()->back()->withErrors(['error' => 'Order not found.']);
+
+    if ($order) {
+        $order->payment_status = $request->payment_status;
+        $order->delivery_status = $request->delivery_status;
+        $order->no_resi = $request->no_resi;
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order status updated successfully!');
     }
 
-    $order->no_resi = $request->no_resi;
-    $order->delivery_status = $request->delivery_status;
-    $order->save();
-
-    return redirect()->back()->with('success', 'Order updated successfully.');
+    return redirect()->back()->with('error', 'Order not found!');
 }
+
 
 public function searchdata(request $request){
 
@@ -131,6 +129,9 @@ public function searchdata(request $request){
 
     return view('admin.order', compact('order'));
 }
+
+
+
 
 
 }

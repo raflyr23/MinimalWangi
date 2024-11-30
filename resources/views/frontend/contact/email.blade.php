@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <h5>Contact Information</h5>
                             <p><strong>Phone:</strong> +62 123 456 7890</p>
-                            <p><strong>Email:</strong> infominimalwangi@gmail.com</p>
+                            <p><strong>Email:</strong> info@minimalwangi.my.id</p>
                         </div>
                     </div>
                 </div>

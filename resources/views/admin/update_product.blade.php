@@ -5,6 +5,7 @@
 
     <base href="/public">
     @include('admin.css')
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.png">
 
     <style type="text/css">
     .div_center {

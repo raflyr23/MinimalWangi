@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('admin.css')
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.png">
 
     <style type="text/css">
         .title_deg {

@@ -3,6 +3,7 @@
   <head>
     <!-- Required meta tags -->
     @include('admin.css')
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.png">
 
     <style type="text/css">
     .center{

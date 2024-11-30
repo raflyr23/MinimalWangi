@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+       
     </x-slot>
 
     <div class="container mt-5">
@@ -96,21 +94,21 @@
                         <p>{{ Auth::user()->email }}</p>
                     </div>
                     <div class="col-md-6">
-                        <h6 class="fw-bold">Phone:</h6>
+                        <h6 class="fw-bold">No Telp:</h6>
                         <p>{{ Auth::user()->no_telp ?? 'Not Provided' }}</p>
                     </div>
                 </div>
     
                 <div class="row">
                     <div class="col-md-12">
-                        <h6 class="fw-bold">Address:</h6>
+                        <h6 class="fw-bold">Alamat:</h6>
                         <p>{{ Auth::user()->alamat ?? 'Not Provided' }}</p>
                     </div>
                 </div>
     
                 <div class="d-flex justify-content-center mt-4">
-                    <a href="{{ url('user/profile') }}" class="btn btn-primary mx-3">Update Profile</a>
-                    <a href="{{ url('/user_order') }}" class="btn btn-primary mx-3">My Orders</a>
+                    <a href="{{ url('user/profile') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow">Update Profile</a>
+                    <a href="{{ url('/user_order') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow">Order Saya</a>
                     <a href="{{ url('/') }}" class="btn btn-secondary mx-3">Back to Home</a>
                 </div>
                 

@@ -87,7 +87,7 @@
 
 
             <!-- Tombol Checkout -->
-            <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#paymentModal">Checkout</button>
+            <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#paymentModal">Checkout</button>
 
             <!-- Modal Pembayaran -->
             <!-- Modal Pembayaran -->
@@ -149,7 +149,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary">Konfirmasi dan Bayar</button>
+                <button type="submit" class="btn btn-success btn-lg">Konfirmasi dan Bayar</button>
             </div>
         </div>
     </div>

@@ -34,7 +34,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5>Follow Us</h5>
-                            <p>Follow Social media kami untuk mengetahui promosi dan informasi terkait:</p>
+                            <p>Follow Media sosial kami untuk mengetahui promosi dan informasi terkait:</p>
                             <ul class="list-inline d-flex justify-content-start">
                                 <li class="list-inline-item mx-2">
                                     <a class="text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw" style="color: #1877f2;"></i></a>

@@ -7,11 +7,11 @@
                 <ul class="list-unstyled text-light footer-link-list">
                     <li>
                         <i class="fas fa-map-marker-alt fa-fw"></i>
-                        Jalan-jalan ke Tanah Abang "(Cakep)"
+                        Jl Di Panjaitan, Purwokerto Selatan
                     </li>
                     <li>
                         <i class="fa fa-phone fa-fw"></i>
-                        <a class="text-decoration-none" href="tel:0882-0021-89421">08 berapa</a>
+                        <a class="text-decoration-none" href="tel:0882-0021-89421">+62882002189421</a>
                     </li>
                     <li>
                         <i class="fa fa-envelope fa-fw"></i>

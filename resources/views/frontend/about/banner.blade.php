@@ -14,7 +14,7 @@
         <div class="col-md-6 order-md-2">
             <h2 class="fw-bold style= font-family: 'Poppins', serif;">Warisan Keunggulan</h2>
             <p class="text-muted">
-                MinimalWangi telah menjadi sinonim dengan parfum berkualitas tinggi, menggabungkan seni Timur dengan inovasi modern. Kami berkomitmen untuk menciptakan parfum yang luar biasa bagi konsumen yang cerdas.
+                MinimalWangi menghadirkan koleksi parfum berkualitas tinggi yang dipilih dengan cermat untuk Anda. Kami percaya bahwa setiap parfum memiliki cerita dan mencerminkan karakter penggunanya. Dengan pilihan aroma yang beragam, kami siap melengkapi hari Anda dengan wewangian yang istimewa.
             </p>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="col-md-6 order-md-1">
             <h2 class="fw-bold style= font-family: 'Poppins', serif;">Menginovasi Tradisi</h2>
             <p class="text-muted">
-                Dengan menggabungkan kerajinan tradisional terbaik dengan teknik-teknik terbaru, kami memastikan bahwa setiap ciptaan tetap abadi namun tetap modern.
+                Kami memilih parfum dari produsen terpercaya yang memadukan tradisi terbaik dengan inovasi modern. Setiap produk yang kami tawarkan dirancang untuk memberikan pengalaman wewangian yang abadi namun relevan dengan gaya hidup Anda.
             </p>
         </div>
     </div>
@@ -42,7 +42,7 @@
         <div class="col-md-6 order-md-2">
             <h2 class="fw-bold style= font-family: 'Poppins', serif;">Masa Depan yang Harum</h2>
             <p class="text-muted">
-                Komitmen kami terhadap keunggulan terus berlanjut saat kami berkembang secara global, berbagi passion kami dalam bercerita melalui parfum dengan dunia.
+                MinimalWangi berkomitmen untuk terus menghadirkan produk terbaik, melayani pelanggan di seluruh Indonesia, dan berbagi keindahan aroma yang mampu menciptakan kenangan tak terlupakan.
             </p>
         </div>
     </div>

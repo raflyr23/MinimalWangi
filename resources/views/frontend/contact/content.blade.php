@@ -2,7 +2,7 @@
     <div class="col-md-6 m-auto text-center">
         <h1 class="h1">Contact Us</h1>
         <p>
-          Apa kabs bre?? Sapa-sapa lahhhhh
+         Hubungi kami melalui kontak di bawah ini
         </p>
     </div>
 </div>

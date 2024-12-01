@@ -68,23 +68,20 @@
         <div class="container-fluid page-body-wrapper">
           <!-- partial:partials/_navbar.html -->
          @include('admin.navbar')
+          <!-- partial -->
+          <div class="content-wrapper">
+            <h1 class="text-center text-2xl font-bold mb-6">All Order</h1>
+        
+            <div class="search-container">
+                <form action="{{ url('search') }}" method="get" class="w-full">
+                    @csrf
+                    <input type="text" name="search" placeholder="Search for something" class="search-input">
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form>
+            </div>
 
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <h1 class="title_deg">All Order</h1>
-
-                <div style=" padding-left: 400px; padding-bottom : 30px;">
-                    <form action="{{ url ('search') }}" method="get">
-
-                        @csrf
-
-                        <input type="text" name="search" placeholder="search for something">
-                        <input type="submit" value="search" class="btn btn-outline-primary">
-
-                    </form>
-                </div>
-
-                <table class="table_deg">
+    <div class="table-responsive">
+        <table class="data-table">
                     <thead>
                         <tr class="th_deg">
                             <th>Nama</th>
@@ -153,16 +150,55 @@
         </div>
     </div>
 
+
     @include('admin.script')
-    
-
-    <script>
-        function printOrder(orderId) {
-            window.location.href = '/print-order/' + orderId;
-        }
-
-        
-    </script>
      <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>
+
+    
 </body>
+
+<script>
+    function printOrder(orderId) {
+        window.location.href = '/print-order/' + orderId;
+    }
+
+    
+</script>
+
+
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.querySelector('.navbar-toggler');
+  const body = document.body;
+
+  // Create overlay element
+  const overlay = document.createElement('div');
+  overlay.className = 'sidebar-overlay';
+  body.appendChild(overlay);
+
+  // Toggle sidebar
+  toggleBtn.addEventListener('click', function() {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.querySelector('.page-body-wrapper').classList.toggle('sidebar-open');
+  });
+
+  // Close sidebar when clicking overlay
+  overlay.addEventListener('click', function() {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    document.querySelector('.page-body-wrapper').classList.remove('sidebar-open');
+  });
+
+  // Close sidebar when window is resized to desktop size
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 991) {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.querySelector('.page-body-wrapper').classList.remove('sidebar-open');
+    }
+  });
+});
+  </script>
 </html>

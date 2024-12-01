@@ -1,9 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-       
-    </x-slot>
+    <x-slot name="header"></x-slot>
 
-    <div class="container mt-5">
+    <div class="container mt-5 px-4">
         <style>
             body {
                 background-color: #f1f3f5;
@@ -13,6 +11,8 @@
                 border-radius: 12px;
                 box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
                 transition: transform 0.3s ease;
+                margin: 0 auto;
+                max-width: 100%;
             }
     
             .card:hover {
@@ -23,100 +23,139 @@
                 background-color: #18152f;
                 color: white;
                 border-radius: 12px 12px 0 0;
+                padding: 1.5rem 1rem;
             }
     
             .card-body {
-                padding: 35px;
+                padding: 1.5rem;
                 background-color: white;
                 border-radius: 0 0 12px 12px;
             }
     
+            .btn-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+    
+            .custom-btn {
+                display: inline-block;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                font-size: 0.875rem;
+                font-weight: 500;
+                text-align: center;
+                transition: all 0.3s ease;
+                white-space: nowrap;
+                margin: 0.5rem;
+                min-width: 120px;
+            }
+    
             .btn-primary {
                 background-color: #d9d4ff;
-                border: none;
-                padding: 14px 28px;
-                font-size: 16px;
-                border-radius: 8px;
-                transition: all 0.3s ease;
+                color: #18152f;
             }
     
             .btn-primary:hover {
                 background-color: #5a4cc7;
+                color: white;
                 transform: translateY(-3px);
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             }
     
             .btn-secondary {
                 background-color: #b2bec3;
-                border: none;
-                padding: 12px 24px;
-                font-size: 16px;
-                border-radius: 8px;
-                transition: all 0.3s ease;
+                color: #2d3436;
             }
     
             .btn-secondary:hover {
                 background-color: #95a5a6;
+                color: white;
                 transform: translateY(-3px);
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             }
     
-            h5, h6 {
-                color: #333;
+            .info-section {
+                margin-bottom: 2rem;
             }
     
-            .text-muted {
-                color: #6c757d;
+            .info-item {
+                margin-bottom: 1.5rem;
             }
     
-            .fw-bold {
+            .info-label {
                 font-weight: 600;
+                color: #333;
+                margin-bottom: 0.5rem;
             }
     
-            .row .col-md-6 {
-                margin-bottom: 1rem;
+            .info-value {
+                color: #6c757d;
+                word-break: break-word;
+            }
+    
+            @media (max-width: 768px) {
+                .container {
+                    padding: 1rem;
+                }
+    
+                .card-body {
+                    padding: 1rem;
+                }
+    
+                .btn-wrapper {
+                    flex-direction: column;
+                }
+    
+                .custom-btn {
+                    width: 100%;
+                    margin: 0.25rem 0;
+                }
+    
+                h4 {
+                    font-size: 1.25rem;
+                }
             }
         </style>
     
-        <div class="card shadow-lg border-0">
+        <div class="card">
             <div class="card-header text-center">
                 <h4 class="mb-0">Selamat datang, {{ Auth::user()->name }}!</h4>
             </div>
             <div class="card-body">
-                <div class="mb-4">
-                    <h5 class="fw-bold">Informasi Anda:</h5>
-                    <p class="text-muted">Berikut adalah detail informasi anda.</p>
-                </div>
-    
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <h6 class="fw-bold">Email:</h6>
-                        <p>{{ Auth::user()->email }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h6 class="fw-bold">No Telp:</h6>
-                        <p>{{ Auth::user()->no_telp ?? 'Not Provided' }}</p>
-                    </div>
-                </div>
-    
-                <div class="row">
-                    <div class="col-md-12">
-                        <h6 class="fw-bold">Alamat:</h6>
-                        <p>{{ Auth::user()->alamat ?? 'Not Provided' }}</p>
-                    </div>
-                </div>
-    
-                <div class="d-flex justify-content-center mt-4">
-                    <a href="{{ url('user/profile') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow">Update Profile</a>
-                    <a href="{{ url('/user_order') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow">Order Saya</a>
-                    <a href="{{ url('/') }}" class="btn btn-secondary mx-3">Back to Home</a>
-                </div>
+                <div class="info-section">
+                    <h5 class="fw-bold mb-3">Informasi Anda:</h5>
+                    <p class="text-muted mb-4">Berikut adalah detail informasi anda.</p>
                 
+                    <div class="info-item">
+                        <div class="info-label">Email:</div>
+                        <div class="info-value">{{ Auth::user()->email }}</div>
+                    </div>
+                
+                    <div class="info-item">
+                        <div class="info-label">No Telp:</div>
+                        <div class="info-value">{{ Auth::user()->no_telp ?? 'Not Provided' }}</div>
+                    </div>
+                
+                    <div class="info-item">
+                        <div class="info-label">Alamat:</div>
+                        <div class="info-value">{{ Auth::user()->alamat ?? 'Not Provided' }}</div>
+                    </div>
+                </div>
+    
+                <div class="btn-wrapper">
+                    <a href="{{ url('user/profile') }}" class="custom-btn btn-primary">
+                        Update Profile
+                    </a>
+                    <a href="{{ url('/user_order') }}" class="custom-btn btn-primary">
+                        Order Saya
+                    </a>
+                    <a href="{{ url('/') }}" class="custom-btn btn-secondary">
+                        Back to Home
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    
 </x-app-layout>
-
-
-

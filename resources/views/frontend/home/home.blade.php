@@ -23,7 +23,7 @@
 
 
     <!-- Header -->
-    @include('frontend.shop.header')
+    @include('frontend.home.header')
 
     <!-- Close Header -->
 

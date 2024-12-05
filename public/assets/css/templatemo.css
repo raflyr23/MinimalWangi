@@ -353,3 +353,116 @@ body, ul, li, p, a, label, input, div {
 }
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {}
+
+/* Mobile-First Approach */
+@media (max-width: 768px) {
+  /* Header & Navigation Adjustments */
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-brand .logo {
+    height: 50px; /* Smaller logo for mobile */
+    width: auto;
+  }
+
+  /* Ensure the navbar collapse works properly */
+  .navbar-collapse {
+    background-color: #fff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Adjust navigation items */
+  .navbar-nav {
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-item:last-child {
+    border-bottom: none;
+  }
+
+  .nav-link {
+    padding: 0.8rem 0;
+  }
+
+  /* Search form adjustments */
+  #search-form {
+    width: 100%;
+    margin: 0.5rem 0;
+    order: 3; /* Move search below navigation items */
+  }
+
+  #inputMobileSearch {
+    width: 100% !important; /* Override inline style */
+    margin: 0.5rem 0;
+  }
+
+  /* Cart and User icons */
+  .nav-icon {
+    padding: 0.5rem;
+    margin: 0 0.3rem;
+  }
+
+  /* Dropdown adjustments */
+  .dropdown-menu {
+    width: 100%;
+    margin-top: 0;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Cart badge position fix */
+  .position-absolute.top-0.start-100 {
+    transform: translate(-50%, -50%);
+  }
+
+  /* Improve touch targets */
+  .nav-icon, 
+  .navbar-toggler,
+  .dropdown-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Fix search functionality */
+  #search-form {
+    position: relative;
+  }
+
+  #search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  /* Better spacing for dropdown items */
+  .dropdown-item {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* Additional adjustments for very small devices */
+@media (max-width: 375px) {
+  .navbar-brand .logo {
+    height: 40px;
+  }
+
+  .nav-icon {
+    font-size: 0.9rem;
+  }
+}
+

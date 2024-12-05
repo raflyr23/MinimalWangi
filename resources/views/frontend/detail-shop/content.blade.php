@@ -23,25 +23,30 @@
                         <h1 class="h2">{{ $product->nama_produk }}</h1>
 
                         <!-- Harga Produk -->
-                        <p class="h3 py-2">
-                            @if($product->diskon && $product->diskon != '0%')
-                                <span class="text-muted text-decoration-line-through">
-                                    RP. {{ number_format($product->harga, 0, ',', '.') }}
-                                </span><br>
-                                <span class="text-danger">
-                                    RP. {{ number_format($product->harga - ($product->harga * intval($product->diskon) / 100), 0, ',', '.') }}
-                                </span>
-                            @else
-                                <span>
-                                    RP. {{ number_format($product->harga, 0, ',', '.') }}
-                                </span>
-                            @endif
-                        </p>
+                        <!-- Harga Produk -->
+<p class="h3 py-2 position-relative">
+    @if($product->diskon && $product->diskon != '0%')
+        <span class="badge bg-danger position-absolute" style="top: 0; right: 0;">
+            -{{ $product->diskon }}
+        </span>
+        <span class="text-muted text-decoration-line-through d-block">
+            RP. {{ number_format($product->harga, 0, ',', '.') }}
+        </span>
+        <span class="text-danger">
+            RP. {{ number_format($product->harga - ($product->harga * intval($product->diskon) / 100), 0, ',', '.') }}
+        </span>
+    @else
+        <span>
+            RP. {{ number_format($product->harga, 0, ',', '.') }}
+        </span>
+    @endif
+</p>
 
                         <!-- Deskripsi Produk -->
+                        <p class="text-muted">Stok Tersedia: {{ $product->jumlah }}</p>
+
                         <p class="py-2">{{ $product->deskripsi }}</p>
 
-                        <!-- Form Tambah ke Keranjang -->
                         <form action="{{ url('add_cart', $product->id) }}" method="POST">
                             @csrf
                             <input type="hidden" name="product-title" value="{{ $product->nama_produk }}">
@@ -51,12 +56,16 @@
                                         Jumlah
                                     </li>
                                     <li class="list-inline-item">
-                                        <input type="number" id="manual-quantity" name="product-quantity" class="form-control" style="width: 60px;" placeholder="Qty" min="1">
+                                        <input type="number" id="manual-quantity" name="product-quantity" class="form-control" 
+                               style="width: 60px;" placeholder="Qty" min="1" max="{{ $product->jumlah }}">
                                     </li>
                                 </ul>
                             </div>
                             <div class="col d-grid">
-                                <button type="submit" class="btn btn-success btn-lg">Tambah ke Keranjang</button>
+                                <button type="submit" class="btn btn-success btn-lg" 
+                                        {{ $product->jumlah < 1 ? 'disabled' : '' }}>
+                                    {{ $product->jumlah < 1 ? 'Stok Habis' : 'Tambah ke Keranjang' }}
+                                </button>
                             </div>
                         </form>
                     </div>

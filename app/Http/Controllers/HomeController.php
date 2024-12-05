@@ -130,42 +130,56 @@ public function add_cart(Request $request, $id)
     $user = Auth::user();
     $product = Product::findOrFail($id);
 
-    // Ambil quantity dari input, minimal defaultnya 1
+    // Check if product is out of stock
+    if ($product->jumlah <= 0) {
+        return redirect()->back()->with('error', 'Maaf, produk ini sedang tidak tersedia.');
+    }
+
+    // Get quantity from input, default to 1 if not specified
     $quantity = max(1, intval($request->input('product-quantity'))); 
 
-    // Cek apakah produk sudah ada di keranjang
+    // Check if requested quantity is available
+    if ($quantity > $product->jumlah) {
+        return redirect()->back()->with('error', 'Jumlah yang diminta melebihi stok yang tersedia.');
+    }
+
+    // Check if product already exists in cart
     $existingCart = Cart::where('user_id', $user->id)
-                        ->where('product_id', $id)
-                        ->first();
+                       ->where('product_id', $id)
+                       ->first();
 
     if ($existingCart) {
-        $existingCart->jumlah += $quantity; // Tambahkan quantity
+        // Check if total quantity would exceed available stock
+        if (($existingCart->jumlah + $quantity) > $product->jumlah) {
+            return redirect()->back()->with('error', 'Total jumlah di keranjang akan melebihi stok yang tersedia.');
+        }
+
+        $existingCart->jumlah += $quantity;
         $existingCart->save();
 
         return redirect()->back()->with('success', 'Produk berhasil ditambah ke keranjang.');
     }
 
-    // Tambah item baru ke keranjang
+    // Add new item to cart
     $cart = new Cart;
 
-    // Data pengguna
+    // User data
     $cart->name = $user->name;
     $cart->email = $user->email;
     $cart->no_telp = $user->no_telp ?? 'N/A';
     $cart->alamat = $user->alamat ?? 'N/A';
     $cart->user_id = $user->id;
 
-    // Data produk
+    // Product data
     $cart->image = $product->image;
     $cart->nama_produk = $product->nama_produk;
     $cart->product_id = $product->id;
 
-    // Hitung harga berdasarkan diskon
+    // Calculate price with discount
     $cart->harga = $product->diskon && $product->diskon != '0%' 
         ? $product->harga - ($product->harga * intval($product->diskon) / 100)
         : $product->harga;
 
-    // Set jumlah sesuai input pengguna
     $cart->jumlah = $quantity;
 
     $cart->save();

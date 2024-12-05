@@ -25,6 +25,7 @@
                 <ul class="list-unstyled text-light footer-link-list">
                     <li><a class="text-decoration-none" href="{{ url('shop?categories_name=men') }}">Parfum Pria</a></li>
                     <li><a class="text-decoration-none" href="{{ url('shop?categories_name=women') }}">Parfum Wanita</a></li>
+                    <li><a class="text-decoration-none" href="{{ url('shop?categories_name=unisex') }}">Parfum Unisex</a></li>
                 </ul>
             </div>
 

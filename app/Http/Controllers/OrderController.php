@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\order_detail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Review;
-
+use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
 
@@ -63,63 +64,82 @@ class OrderController extends Controller
    
 }
 
-public function add_order(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'no_telp' => 'required|string|max:15',
-        'alamat' => 'required|string',
-        'image' => 'required|mimes:jpg,jpeg,png|max:2048',
-    ]);
-
-    if (!Auth::check()) {
-        return redirect('login')->with('error', 'Please login to complete your order.');
+public function add_order(Request $request) 
+{ 
+    $request->validate([ 
+        'name' => 'required|string|max:255', 
+        'no_telp' => 'required|string|max:15', 
+        'alamat' => 'required|string', 
+        'image' => 'required|mimes:jpg,jpeg,png|max:2048', 
+    ]); 
+ 
+    if (!Auth::check()) { 
+        return redirect('login')->with('error', 'Please login to complete your order.'); 
+    } 
+ 
+    $user = Auth::user(); 
+    $cart = Cart::where('user_id', $user->id)->get(); 
+ 
+    if ($cart->isEmpty()) { 
+        return redirect()->back()->withErrors(['error' => 'Your cart is empty.']); 
     }
 
-    $user = Auth::user();
-    $cart = Cart::where('user_id', $user->id)->get();
-
-    if ($cart->isEmpty()) {
-        return redirect()->back()->withErrors(['error' => 'Your cart is empty.']);
-    }
-
-    $total = $cart->sum(function ($item) {
-        return $item->harga * $item->jumlah;
-    });
-
-    // Create a new order
-    $orders = new Order();
-    $orders->name = $request->name; // Data dari input
-    $orders->email = $user->email; // Email tetap dari akun
-    $orders->no_hp = $request->no_telp; // Data dari input
-    $orders->alamat = $request->alamat; // Data dari input
-    $orders->user_id = $user->id;
-
-    // Handle image upload for proof of payment
-    $image = $request->file('image');
-    $imagename = time() . '.' . $image->getClientOriginalExtension();
-    $image->move(public_path('uploads/payments'), $imagename);
-    $orders->bukti_pembayaran = $imagename;
-
-    $orders->payment_status = 'Pending';
-    $orders->delivery_status = '';
-    $orders->save();
-
-    // Add order details for each item in the cart
+    // Check stock availability
     foreach ($cart as $item) {
-        $order_details = new order_detail();
-        $order_details->order_id = $orders->id;
-        $order_details->nama_produk = $item->nama_produk;
-        $order_details->jumlah = $item->jumlah;
-        $order_details->harga = $item->harga;
-        $order_details->product_id = $item->product_id; // assuming 'product_id' exists in the Cart model
-        $order_details->save();
+        $product = Product::find($item->product_id);
+        if ($product->jumlah < $item->jumlah) {
+            return redirect()->back()->withErrors(['error' => "Insufficient stock for {$item->nama_produk}"]);
+        }
     }
+ 
+    $total = $cart->sum(function ($item) { 
+        return $item->harga * $item->jumlah; 
+    }); 
+ 
+    DB::beginTransaction();
+    try {
+        // Create order
+        $orders = new Order(); 
+        $orders->name = $request->name;
+        $orders->email = $user->email;
+        $orders->no_hp = $request->no_telp;
+        $orders->alamat = $request->alamat;
+        $orders->user_id = $user->id; 
+     
+        $image = $request->file('image'); 
+        $imagename = time() . '.' . $image->getClientOriginalExtension(); 
+        $image->move(public_path('uploads/payments'), $imagename); 
+        $orders->bukti_pembayaran = $imagename; 
+     
+        $orders->payment_status = 'Pending'; 
+        $orders->delivery_status = ''; 
+        $orders->save(); 
+     
+        // Add order details and update stock
+        foreach ($cart as $item) { 
+            $order_details = new order_detail(); 
+            $order_details->order_id = $orders->id; 
+            $order_details->nama_produk = $item->nama_produk; 
+            $order_details->jumlah = $item->jumlah; 
+            $order_details->harga = $item->harga; 
+            $order_details->product_id = $item->product_id;
+            $order_details->save(); 
 
-    // Optionally, you can clear the cart after the order is placed
-    Cart::where('user_id', $user->id)->delete();
+            // Decrease product stock
+            $product = Product::find($item->product_id);
+            $product->jumlah -= $item->jumlah;
+            $product->save();
+        } 
+     
+        Cart::where('user_id', $user->id)->delete(); 
+        
+        DB::commit();
+        return redirect()->back()->with('success', 'Order placed successfully'); 
 
-    return redirect()->back()->with('success', 'Order placed successfully');
+    } catch (\Exception $e) {
+        DB::rollback();
+        return redirect()->back()->withErrors(['error' => 'Error processing order. Please try again.']);
+    }
 }
 
 public function updateOrder(Request $request, $id)

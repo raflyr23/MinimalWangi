@@ -33,7 +33,7 @@ https://templatemo.com/tm-559-zay-shop
    
 
     <!-- Header -->
-    @include('frontend.shop.header')
+    @include('frontend.detail-shop.header')
     <!-- Close Header -->
 
     <!-- Modal -->

@@ -102,11 +102,7 @@ const manualQuantity = document.getElementById('manual-quantity');
 form.addEventListener('submit', function (e) {
     const manualValue = parseInt(manualQuantity.value, 10);
 
-    // Validasi input jumlah
-    if (isNaN(manualValue) || manualValue <= 0) {
-        e.preventDefault(); // Mencegah pengiriman form
-        alert('Masukkan jumlah produk yang valid.');
-        return;
-    }
-});
+}    
+);
+
 </script>

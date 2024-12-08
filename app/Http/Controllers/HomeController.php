@@ -33,7 +33,12 @@ class HomeController extends Controller
             return view('admin.home', compact ('total_product','total_order','total_customer', 'total_revenue', 'total_delivered','total_processing'));
     }
     else{
-        return view('frontend.home.home');
+
+        $product = Product::whereNotIn('diskon', ['0%', ''])
+                     ->orderByRaw('CAST(TRIM(TRAILING "%" FROM diskon) AS DECIMAL) DESC')
+                     ->get();
+
+        return view('frontend.home.home', compact('product'));
     }
 }
 

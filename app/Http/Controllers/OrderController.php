@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\Product;
+use App\Models\product;
 use App\Models\order_detail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Review;

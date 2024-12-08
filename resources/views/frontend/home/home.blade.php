@@ -51,7 +51,7 @@
     <!-- End Banner Hero -->
 
 
- 
+ @include('frontend.home.silder')
 
 
     <!-- Start Footer -->

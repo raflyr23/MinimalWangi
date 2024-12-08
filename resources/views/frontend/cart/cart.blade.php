@@ -49,7 +49,7 @@
                                 <td>{{ $item->jumlah }}</td>
                                 <td>RP. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                 <td>
-                                    <img src="product/{{ $item->image }}" alt="{{ $item->nama_produk }}" class="img-fluid product-img" style="max-width: 80px;">
+                                    <img src="product/{{ $item->image }}" alt="{{ $item->nama_produk }}" class="img-fluid cartproduct-img" style="max-width: 80px;">
                                 </td>
                                 <td class="action-btn">
                                     <form action="{{ url('remove_cart', $item->id) }}" method="GET">

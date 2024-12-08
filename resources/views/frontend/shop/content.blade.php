@@ -48,7 +48,7 @@
                                 <!-- Discount Badge -->
                                 @if($item->diskon && $item->diskon != '0%')
                                     <div class="position-absolute top-0 end-0 m-2">
-                                        <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.8rem;">-{{ $item->diskon }}</span>
+                                        <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.8rem;">-{{ $item->diskon }}%</span>
                                     </div>
                                 @endif
                                 
@@ -79,9 +79,9 @@
                                 
                                 <!-- Stock Status -->
                                 @if($item->jumlah <= 0)
-                                    <div class="text-danger text-center mb-2">Stok Habis</div>
+                                    <div class="stock-status out">Stok Habis</div>
                                 @else
-                                    <div class="text-success text-center mb-2">Stok: {{ $item->jumlah }}</div>
+                                    <div class="stock-status in">Stok: {{ $item->jumlah }}</div>
                                 @endif
                                 
                                 <div class="text-center">

@@ -218,7 +218,7 @@ public function remove_cart($id)
         $cartItem = Cart::findOrFail($id); // Cari item cart berdasarkan ID
         if ($cartItem->user_id == Auth::id()) { // Pastikan hanya pemilik keranjang yang bisa menghapus
             $cartItem->delete();
-            return redirect()->back()->with('success', 'Item successfully removed from cart.');
+            return redirect()->back()->with('success', 'Barang berhasil dihapus dari keranjang anda.');
         } else {
             return redirect()->back()->with('error', 'You are not authorized to delete this item.');
         }

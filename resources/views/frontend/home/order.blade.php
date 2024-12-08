@@ -21,6 +21,22 @@
 <body>
 
 @include('frontend.home.header')
+{{-- Pesan setelah review --}}
+<div class="container mt-4">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+</div>
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Daftar Order Anda</h2>
@@ -70,32 +86,33 @@
                 </table>
 
                 @if($order->delivery_status === 'Selesai')
-                    @foreach($order->orderDetails as $detail)
-                        @if($detail->product && !$detail->product->reviews()->where('user_id', Auth::id())->where('order_id', $order->id)->exists())
-                            <div class="review-form mt-3">
-                                <h4>Review for {{ $detail->nama_produk }}</h4>
-                                <form action="{{ route('review.submit') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $detail->product_id }}">
-                                    <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                    
-                                    <div class="rating">
-                                        @for($i = 5; $i >= 1; $i--)
-                                            <input type="radio" name="rating" value="{{ $i }}" id="star{{ $i }}_{{ $detail->id }}">
-                                            <label for="star{{ $i }}_{{ $detail->id }}">☆</label>
-                                        @endfor
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <textarea name="comment" class="form-control" placeholder="Write your review here..."></textarea>
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-success text-white mt-2">Submit Review</button>
-                                </form>
-                            </div>
-                        @endif
-                    @endforeach
-                @endif
+                @foreach($order->orderDetails as $detail)
+                    @if($detail->product && !$detail->product->reviews()->where('user_id', Auth::id())->where('order_id', $order->id)->exists())
+                        <div class="review-form mt-3">
+                            <h4>Review for {{ $detail->nama_produk }}</h4>
+                            <form action="{{ route('review.submit') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $detail->product_id }}">
+                                <input type="hidden" name="order_id" value="{{ $order->id }}">
+            
+                                <div class="rating">
+                                    @for($i = 5; $i >= 1; $i--)
+                                        <input type="radio" name="rating" value="{{ $i }}" id="star{{ $i }}_{{ $detail->id }}">
+                                        <label for="star{{ $i }}_{{ $detail->id }}">☆</label>
+                                    @endfor
+                                </div>
+            
+                                <div class="form-group">
+                                    <textarea name="comment" class="form-control" placeholder="Write your review here..."></textarea>
+                                </div>
+            
+                                <button type="submit" class="btn btn-success text-white mt-2">Submit Review</button>
+                            </form>
+                        </div>
+                    @endif
+                @endforeach
+            @endif
+            
             </div>
         @endforeach
     @endif

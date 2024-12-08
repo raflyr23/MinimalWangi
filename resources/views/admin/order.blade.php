@@ -58,6 +58,7 @@
             display: inline;
             width: 150px;
         }
+        
     </style>
 </head>
 <body>
@@ -69,6 +70,7 @@
           <!-- partial:partials/_navbar.html -->
          @include('admin.navbar')
           <!-- partial -->
+          <div class="main-panel">
           <div class="content-wrapper">
             <h1 class="text-center text-2xl font-bold mb-6">All Order</h1>
         
@@ -149,21 +151,18 @@
             </div>
         </div>
     </div>
+        </div>
+    </div>
+    
 
 
+    <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>
     @include('admin.script')
-     <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>
 
     
 </body>
 
-<script>
-    function printOrder(orderId) {
-        window.location.href = '/print-order/' + orderId;
-    }
 
-    
-</script>
 
 
  <script>

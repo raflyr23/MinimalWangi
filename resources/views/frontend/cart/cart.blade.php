@@ -19,6 +19,23 @@
 </head>
 <body>
     @include('frontend.shop.header')
+{{-- Pesan jika barang ingin dihapus dari kerajanng --}}
+<div class="container mt-4">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+</div>
+
 
     <div class="container my-5">
         <div class="row">
@@ -52,12 +69,13 @@
                                     <img src="product/{{ $item->image }}" alt="{{ $item->nama_produk }}" class="img-fluid cartproduct-img" style="max-width: 80px;">
                                 </td>
                                 <td class="action-btn">
-                                    <form action="{{ url('remove_cart', $item->id) }}" method="GET">
+                                    <form action="{{ url('remove_cart', $item->id) }}" method="GET" onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('get')
                                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                     </form>
                                 </td>
+                                
                             </tr>
                             @php
                                 $total += $item->harga * $item->jumlah;
@@ -90,5 +108,11 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
+
+    <script>
+        function confirmDelete() {
+            return confirm('Apakah Anda yakin ingin menghapus barang dari keranjang?');
+        }
+    </script>
 </body>
 </html>

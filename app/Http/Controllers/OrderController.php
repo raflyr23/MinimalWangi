@@ -134,7 +134,7 @@ public function add_order(Request $request)
         Cart::where('user_id', $user->id)->delete(); 
         
         DB::commit();
-        return redirect()->back()->with('success', 'Order placed successfully'); 
+        return redirect()->back()->with('success', 'Pembayaran berhasil, pesanan akan segera diproses'); 
 
     } catch (\Exception $e) {
         DB::rollback();
@@ -161,18 +161,6 @@ public function updateOrder(Request $request, $id)
     return redirect()->back()->with('success', 'Order updated successfully.');
 }
 
-public function printOrder($id)
-{
-    // Ambil data order berdasarkan ID
-    $order = Order::with('orderDetails')->findOrFail($id);
-
-    // Generate PDF
-    $pdf = PDF::loadView('admin.print-order', compact('order'));
-
-    // Stream PDF ke browser
-    return $pdf->stream('order-'.$id.'.pdf');
-}
-
 public function submitReview(Request $request)
 {
     $request->validate([
@@ -182,6 +170,17 @@ public function submitReview(Request $request)
         'comment' => 'nullable|string|max:500'
     ]);
 
+    // Cek apakah pengguna sudah pernah memberikan ulasan untuk produk ini di order ini
+    $existingReview = Review::where('user_id', Auth::id())
+                            ->where('product_id', $request->product_id)
+                            ->where('order_id', $request->order_id)
+                            ->first();
+
+    if ($existingReview) {
+        return redirect()->back()->with('error', 'You have already reviewed this product.');
+    }
+
+    // Simpan review baru
     $review = Review::create([
         'user_id' => Auth::id(),
         'product_id' => $request->product_id,
@@ -190,8 +189,9 @@ public function submitReview(Request $request)
         'comment' => $request->comment
     ]);
 
-    return redirect()->back()->with('success', 'Review submitted successfully!');
+    return redirect()->back()->with('success', 'Review berhasil dikirim!');
 }
+
 
 
 

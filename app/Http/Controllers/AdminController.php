@@ -15,15 +15,22 @@ class AdminController extends Controller
 
     }
 
-    public function add_categories(Request $request){
-        $data=new categories;
-        $data->categories_name=$request->categories;
-
+    public function add_categories(Request $request) {
+        $request->validate([
+            'categories' => 'required|string|max:255',
+        ], [
+            'categories.required' => 'Nama kategori wajib diisi.',
+            'categories.string' => 'Nama kategori harus berupa teks.',
+            'categories.max' => 'Nama kategori tidak boleh lebih dari 255 karakter.',
+        ]);
+    
+        $data = new Categories;
+        $data->categories_name = $request->categories;
         $data->save();
-        return redirect()->back() ->with('message','Kategori berhasil ditambahkan');
-
-
+    
+        return redirect()->back()->with('message', 'Kategori berhasil ditambahkan');
     }
+    
 
     public function delete_categories($id){
         $data=categories::find($id);

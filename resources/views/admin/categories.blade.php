@@ -40,7 +40,9 @@
        @include('admin.navbar')
         <!-- partial -->
         <div class="main-panel">
-            
+
+
+             <!-- Pesan kategori berhasil diisi -->
             <div class="content-wrapper">
                 @if(session()->has('message'))
                     
@@ -48,17 +50,29 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                     {{ session()->get('message') }}
                 </div>
+
                 @endif
+ <!-- Kategori wajib diisi -->
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
                 <div class="div_center">
                     <h2 class="h2_font">Add Categories</h2>
-                    <form action="{{ url ('/add_categories') }}" method="POST">
-
-                        @csrf
-
-                        <input class="input_color" type="text" name="categories" placeholder="Masukkan Nama Kategori">
-                        <input type="submit" class="btn btn-primary" name="submit">
-                    </form>
+                    <form action="{{ url('/add_categories') }}" method="POST">
+                      @csrf
+                      <label for="categories">Nama Kategori:</label>
+                      <input id="categories" class="input_color" type="text" name="categories" placeholder="Masukkan Nama Kategori" required>
+                      <input type="submit" class="btn btn-primary" name="submit">
+                  </form>
+                  
                 </div>
 
                 <table class="center">

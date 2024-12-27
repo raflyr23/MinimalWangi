@@ -20,7 +20,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .table_deg th, 
+        .table_deg th,
         .table_deg td {
             border: 1px solid #ddd;
             padding: 12px;
@@ -58,7 +58,7 @@
             display: inline;
             width: 150px;
         }
-        
+
     </style>
 </head>
 <body>
@@ -73,7 +73,7 @@
           <div class="main-panel">
           <div class="content-wrapper">
             <h1 class="text-center text-2xl font-bold mb-6">All Order</h1>
-        
+
             <div class="search-container">
                 <form action="{{ url('search') }}" method="get" class="w-full">
                     @csrf
@@ -94,11 +94,12 @@
                             <th>No Resi</th>
                             <th>Payment Status</th>
                             <th>Delivery Status</th>
+                            <th>Order Detail</th>
                             <th>Update Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($order as $order)
+                        @forelse($orders as $order)
                         <tr class="tr_deg">
                             <td>{{ $order->name }}</td>
                             <td>{{ $order->email }}</td>
@@ -111,10 +112,26 @@
                             <td>{{ $order->payment_status }}</td>
                             <td>{{ $order->delivery_status }}</td>
                             <td>
+                                @if ($order->orderDetails->isNotEmpty())
+                                    <ul>
+                                        @foreach ($order->orderDetails as $detail)
+                                            <li>
+                                                {{ $detail->nama_produk }}
+                                                <br>Jumlah: {{ $detail->jumlah }}
+                                                <br>Harga: {{ $detail->harga }}
+                                            </li>
+
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p>No order details available.</p>
+                                @endif
+                            </td>
+                            <td>
                                 <form action="{{ url('/update-order-status/'.$order->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                
+
                                     <!-- Payment Status -->
                                     <label for="payment_status_{{ $order->id }}" class="form-label d-block">Payment Status</label>
                                     <select id="payment_status_{{ $order->id }}" name="payment_status" class="form-select mb-2">
@@ -122,7 +139,7 @@
                                         <option value="Paid" {{ $order->payment_status == 'Paid' ? 'selected' : '' }}>Paid</option>
                                         <option value="Failed" {{ $order->payment_status == 'Failed' ? 'selected' : '' }}>Failed</option>
                                     </select>
-                
+
                                     <!-- Delivery Status -->
                                     <label for="delivery_status_{{ $order->id }}" class="form-label d-block">Delivery Status</label>
                                     <select id="delivery_status_{{ $order->id }}" name="delivery_status" class="form-select mb-2">
@@ -131,11 +148,11 @@
                                         <option value="Selesai" {{ $order->delivery_status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
                                         <option value="Dibatalkan" {{ $order->delivery_status == 'Dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
                                     </select>
-                
+
                                     <!-- No Resi -->
                                     <label for="no_resi_{{ $order->id }}" class="form-label d-block">No Resi</label>
                                     <input type="text" id="no_resi_{{ $order->id }}" name="no_resi" value="{{ $order->no_resi }}" class="form-control mb-2">
-                
+
                                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                                 </form>
                             </td>
@@ -147,19 +164,19 @@
                         @endforelse
                     </tbody>
                 </table>
-                
+
             </div>
         </div>
     </div>
         </div>
     </div>
-    
+
 
 
     <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>
     @include('admin.script')
 
-    
+
 </body>
 
 

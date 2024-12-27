@@ -6,11 +6,8 @@
       <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
         <span class="mdi mdi-menu"></span>
       </button>
-     
-      
-        <li><a class="dropdown-item" href="dashboard">User</a></li>
         <li>
-            <a href="#" class="dropdown-item" 
+            <a href="#" class="dropdown-item"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 Logout
             </a>

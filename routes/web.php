@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController; //Contorller untuk home user
 use App\Http\Controllers\AdminController; //controller untuk admin
 use App\Http\Controllers\OrderController;
-
 Route::get('/', function () {
     return view('frontend.home.home');
 });
